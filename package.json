@@ -1,0 +1,12 @@
+{
+  "name": "tutorial-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "frontend": "cd frontend && npm run dev",
+    "server": "cd server && nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
