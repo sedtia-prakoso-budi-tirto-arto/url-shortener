@@ -66,7 +66,14 @@ export default {
               }
             },
             (error) => {
-                console.log(response);
+              Swal.fire({
+                title: 'Error!',
+                text: `Seems like there is an error while login ${error}`,
+                icon: 'error',
+                timer: 1500,
+                showConfirmButton: false,
+              });
+                console.log(error.code);
                 status: failed;
             });
     }

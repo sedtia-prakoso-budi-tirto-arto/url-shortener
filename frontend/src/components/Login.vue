@@ -60,6 +60,7 @@ export default {
               showConfirmButton: false,
         });
         const user = userCredential.user;
+        console.log(user);
         this.$router.push({ name: "dashboard" });
         // ...
       })
