@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { async } from "@firebase/util";
 import { db, auth } from "./config.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -24,6 +26,20 @@ router.get("/users", (req, res) => {
       });
   } catch (error) {
     res.send(error);
+  }
+});
+
+router.post("/api/register", async(req, res) => {
+  let email = req.body.email
+  let password = req.body.password
+  try{
+      await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential => {
+          res.send(userCredential)
+      }))
+  }
+  catch(err){
+      console.log(err)
   }
 });
 

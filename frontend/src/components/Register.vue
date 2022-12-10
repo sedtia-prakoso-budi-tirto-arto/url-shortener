@@ -8,22 +8,26 @@
           <div class="lg:col-span-2">
             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
               <div class="md:col-span-5">
-                <label for="full_name">Nama Lengkap</label>
-                <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="nama" v-model="App.input.user.name" />
+                <!-- <label for="full_name">Nama Lengkap</label>
+                <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="nama" v-model="App.input.user.name" /> -->
+                <label>Email</label><br />
+                <input type="text" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="Email" v-model="email" required/>
               </div>
   
               <div class="md:col-span-5">
-                <label for="email">Alamat Email</label>
-                <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="App.input.user.email" placeholder="email@domain.com" />
+                <!-- <label for="email">Alamat Email</label>
+                <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" v-model="App.input.user.email" placeholder="email@domain.com" /> -->
+                <label class="password">Password</label><br />
+                <input type="password" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="Password" v-model="password" required/>
               </div>
   
               <div class="md:col-span-5 text-center">
                 <div class="mt-3 text-center">
-                  <button @click="App.addUser(App.input.user)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                  <!-- <button @click="App.addUser(App.input.user)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button> -->
+                  <button @click="postUser()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
                 </div>
                 <div class="mt-3 text-center">
-                  <button @click="$router.push('/login')" >Login</button> |
-                  <button @click="$router.push('/')" >Home</button>
+                  <p>Have an account? | <button @click="$router.push('/')" >Login</button></p>
                 </div>
               </div>
             </div>
@@ -32,17 +36,43 @@
       </div>  
     </div>
   </template>
-  
+
   <script>
-  import {useApp} from '../stores/index';
-  export default {
-    setup() {
-      const App = useApp();
+import axios from "axios";
+import Swal from 'sweetalert2';
+export default {
+    data() {
       return {
-        App,
-      }
+      };
     },
-    created() {
+    methods: {
+    async postUser() {
+            await axios.post(`http://127.0.0.1:3000/api/register`, {
+                email: this.email,
+                password: this.password
+            })
+            .then((response) => {
+              if(response.status) {
+                Swal.fire({
+                  title: 'Success!',
+                  text: `Succesesfully added user ${this.email}`,
+                  icon: 'success',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+                this.$router.push({name : "login"});
+                console.log(response);
+                status: success;
+              }
+            },
+            (error) => {
+                console.log(response);
+                status: failed;
+            });
     }
-  }
-  </script>  
+    
+    },
+    mounted() {
+    },
+};
+</script>

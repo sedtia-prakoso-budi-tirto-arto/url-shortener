@@ -53,6 +53,23 @@ export const useApp = defineStore({
         }
         );
       },
+      // async postUser() {
+      //   let res = await axios.post(`http://127.0.0.1:3000/api/login`, {
+      //             email: this.email,
+      //             password: this.password,
+      //         })
+      //         .then((response) => {
+      //             const uid = response.data
+      //             console.log(uid)
+      //             localStorage.setItem('uid', uid)
+      //             this.$router.push({path: `/dashboard/${uid}`})
+      //             console.log(response)
+      //         })
+      //         .catch((error) => {
+      //             console.log(error)
+      //             this.$router.push("/")
+      //         })
+      // },
       async addUser(user) {
         await axios.post('http://127.0.0.1:3000/users', {
           nama: user.name,
