@@ -63,7 +63,7 @@
 </style>
 
 <script>
-import {useApp} from '../stores/index';
+import {useApp} from '../stores/index.js';
 import EditUser from './EditUser.vue';
 export default {
     setup() {

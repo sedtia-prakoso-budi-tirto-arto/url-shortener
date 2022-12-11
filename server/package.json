@@ -1,12 +1,12 @@
 {
-  "name": "tutorial-backend",
+  "name": "shortener-link",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
   },
-  "author": "Pweb Kelas A",
+  "author": "Pweb Kelas B",
   "license": "ISC",
   "type": "module",
   "dependencies": {

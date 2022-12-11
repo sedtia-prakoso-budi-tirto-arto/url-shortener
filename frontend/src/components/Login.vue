@@ -10,17 +10,17 @@
             
             <div class="md:col-span-5">
               <label for="email">Alamat Email</label>
-              <input type="text" v-model="login_email" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="email@domain.com" />
+              <input type="text" v-model="email" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="email@domain.com" />
             </div>
             
             <div class="md:col-span-5">
               <label for="password">Password</label>
-              <input type="password" v-model="login_pass" name="password" id="password" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="password" />
+              <input type="password" v-model="password" name="password" id="password" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="password" />
             </div>
 
             <div class="md:col-span-5 text-center">
               <div class="mt-3 text-center">
-                <button @click="login(login_email, login_pass)" v-on:keyup.enter="login()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                <button @click="login()" @keyup.enter="login()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
               </div>
               <div class="mt-3 text-center">
                 <p>Don't have an account? <button @click="$router.push('/register')" style="color: #3F83F8;">Register</button></p>
@@ -34,61 +34,52 @@
 </template>
 
 <script>
-// import { db, auth } from "../firebase/firebase";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import Swal from 'sweetalert2';
-// import axios from "axios";
-// import cookies from "vue-cookies";
+import axios from "axios";
+import { db, auth } from "../firebase/firebase.js";
 
 export default {
   data() {
     return {
-      status: false,
+      // status: false,
     };
   },
   methods: {
-    async login(email, password) {
-      const auth = getAuth();
-      const res = await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        Swal.fire({
-              title: 'Success!',
-              text: `Succesesfully login user ${email}`,
-              icon: 'success',
-              timer: 1500,
-              showConfirmButton: false,
-        });
-        const user = userCredential.user;
-        console.log(user);
-        this.$router.push({ name: "dashboard" });
-        // ...
-      })
-      .catch(
-        (err) => {
-          Swal.fire({
-            title: 'Error!',
-            text: `Seems like there is an error while login ${err}`,
-            icon: 'error',
-            timer: 1500,
-            showConfirmButton: false,
-          });
-          console.log(err.code);
-        }
-      );
-      // cookies.set("token", res._tokenResponse.idToken);
+    async login() {
+            let res = await axios.post(`http://127.0.0.1:3000/api/login`, {
+                email: this.email,
+                password: this.password
+            })
+            .then((response) => {
+                Swal.fire({
+                  title: 'Success!',
+                  text: `Succesesfully login user ${this.email}`,
+                  icon: 'success',
+                  timer: 1500,
+                  showConfirmButton: false,
+                })
+                const uid = response.status;
+                console.log(uid);
+                localStorage.setItem('uid', uid);
+                this.$router.push({name: "dashboard"});
+                console.log(response);
+                //status: success;
+            })
+            .catch(
+              (error) => {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Seems like there is an error while login ${error}`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+                  console.log(error);
+                  this.$router.push("/");
+                  // status: failed;
+              }
+            );
     },
-    // checkForm() {
-    //   let email = this.email;
-    //   let password = this.password;
-    //   if (email == "" || password == "") {
-    //     alert("Ada yang kosong ngab")
-    //     return false;
-    //   }
-    //   else{
-    //     this.postUser();
-    //   }
-    // }
   },
 };
 </script>
