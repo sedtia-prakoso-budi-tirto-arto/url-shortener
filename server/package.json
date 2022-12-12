@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app.js"
   },
-  "author": "Pweb Kelas B",
+  "author": "Joko Kendil",
   "license": "ISC",
   "type": "module",
   "dependencies": {

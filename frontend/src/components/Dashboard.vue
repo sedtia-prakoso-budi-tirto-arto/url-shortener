@@ -20,7 +20,7 @@
     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="editHandler(newLink.id)">Submit Edit</button>
   </div>
       
-  <div class="table-responsive" style="margin-top: 50px; ;">
+  <div class="table-responsive text-center" style="margin-top: 50px; margin-left: 14%;">
     <table class="table table-hover table-borderless table-striped text-center">
       <thead>
         <tr>
@@ -31,8 +31,8 @@
       </thead>
       <tbody v-for="link in links" :key="link">
         <tr v-if="link.uid == userID">
-          <td> <a @click="clickLink()" target="_blank" v-bind:href="'http://127.0.0.1:5173/' + link.slink" style="color: #3F83F8; padding: 100px;">Joko.kendil/{{ link.slink }}</a></td>
-          <td style="max-width: 500px; word-wrap: break-word;">{{ link.flink }}</td>
+          <td> <a @click="clickLink()" target="_blank" v-bind:href="'http://127.0.0.1:5173/' + link.slink" style="color: #3F83F8;">Joko.kendil/{{ link.slink }}</a></td>
+          <td style="max-width: 500px; word-wrap: break-word; padding-left: 10px;">{{ link.flink }}</td>
           <td scope="row" style="padding-left: 50px; padding-right: 50px;">{{ link.uses }}</td>
           <td><button class="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" @click="editLink(link.id)"> Edit </button></td>
           <td><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="deleteLink(link.id)"> Delete </button></td>
