@@ -47,7 +47,16 @@
                 password: this.password
             })
             .then((response) => {
-              if(response.status) {
+              if(response.data == "auth/email-already-in-use") {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Account has already use`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else{
                 Swal.fire({
                   title: 'Success!',
                   text: `Succesesfully added user ${this.email}`,

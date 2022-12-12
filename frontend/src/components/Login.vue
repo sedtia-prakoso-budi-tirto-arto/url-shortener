@@ -36,7 +36,7 @@
 <script>
 import Swal from 'sweetalert2';
 import axios from "axios";
-import { db, auth } from "../firebase/firebase.js";
+// import { db, auth } from "../firebase/firebase.js";
 
 export default {
   data() {
@@ -51,6 +51,48 @@ export default {
                 password: this.password
             })
             .then((response) => {
+              console.log(response.data);
+              if(response.data == "auth/invalid-email"){
+                this.validation = "Invalid email ! Please input valid email"
+                Swal.fire({
+                  title: 'Error!',
+                  text: `${this.validation}`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/missing-email"){
+                this.validation = "Please input your email !"
+                Swal.fire({
+                  title: 'Error!',
+                  text: `${this.validation}`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/wrong-password"){
+                this.validation = "Wrong password ! Please input valid password"
+                Swal.fire({
+                  title: 'Error!',
+                  text: `${this.validation}`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/user-not-found"){
+                this.validation = "User not found !"
+                Swal.fire({
+                  title: 'Error!',
+                  text: `${this.validation}`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else {
                 Swal.fire({
                   title: 'Success!',
                   text: `Succesesfully login user ${this.email}`,
@@ -62,8 +104,8 @@ export default {
                 console.log(uid);
                 localStorage.setItem('uid', uid);
                 this.$router.push({name: "dashboard"});
-                console.log(response);
-                //status: success;
+                //status: success;               
+              }
             })
             .catch(
               (error) => {

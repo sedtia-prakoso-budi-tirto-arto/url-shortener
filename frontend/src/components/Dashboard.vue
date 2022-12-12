@@ -1,111 +1,14 @@
-<!-- <template>
-    <div class="text-center">Shortener Link</div>
-    <button @click="logout" type="button" class="inline-flex items-center rounded-md border border-transparent bg-gray-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-            Logout
-          </button>
-    <div class="relative flex justify-center flex-col overflow-hidden">
-      <Navbar :name="this.nama_user" @logout="logout" class="pt-10"> </Navbar>
-      <div
-        class="flex flex-col justify-center w-full max-w-[900px] pt-32 mx-auto"
-      >
-        <input
-          type="text"
-          class="rounded-2xl text-base text-white py-4 px-10 bg-[#252836] focus:outline-2 focus:outline-[#08A0F7] active:outline-2 active:outline-[#08A0F7] hover:outline-1 hover:outline-[#08A0F7] outline-none w-full shadow-lg"
-          name=""
-          id=""
-          placeholder="Paste url ..."
-          v-model="url"
-        />
-        <div class="flex justify-between pt-7">
-          <input
-            type="text"
-            class="rounded-2xl text-base text-white py-4 px-10 bg-[#252836] focus:outline-2 focus:outline-[#08A0F7] active:outline-2 active:outline-[#08A0F7] hover:outline-1 hover:outline-[#08A0F7] outline-none w-72 shadow-lg"
-            placeholder="Alias (optional)"
-            v-model="shorten"
-          />
-          <button
-            class="py-4 px-16 rounded-xl font-bold text-white hover:text-slate-300 bg-[#08A0F7] shadow-lg hover:outline-2 hover:outline hover:outline-[#08A0F7]"
-            @click="generateLink(url, shorten)"
-          >
-            Create
-          </button>
-        </div>
-        <div
-          class="font-semibold text-white rounded-xl py-3 text-center text-xl bg-gradient-to-r from-[#957ADC] to-[#4B89DD] tracking-widest mt-16 shadow-lg"
-        >
-          URL LIST
-        </div>
-        <div class="bg-[#252836] mt-8 mb-24 rounded-xl shadow-xl px-12 py-10">
-          <div class="grid grid-cols-6 py-3" v-for="(link, index) in links" :key="index">
-            <div
-            class="text-white col-span-2 font-normal tracking-wider flex"
-              @click="redirectLinks(link.alias)"
-            >
-              <p class="self-center">{{ link.alias }}</p>
-            </div>
-            <div class="text-[#08A0F7] col-span-3 tracking-wider flex">
-              <p class="self-center hover:cursor-pointer truncate max-w-xs">
-                {{ link.url }}
-              </p>
-            </div>
-            <div
-            class="font-bold text-white text-center rounded-2xl bg-[#957ADC] px-6 py-1 w-fit col-span-1 tracking-wider cursor-pointer"
-            @click="$router.push(`/dashboard/url/${link.alias}`)"
-            >
-            <p class="self-center">Detail</p>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-
-<script>
-
-//   import axios from "axios";
-//   import cookies from "vue-cookies";
-//   import Navbar from "../components/Navbar.vue";
-  import { auth } from "../firebase/firebase";
-  import { signOut } from "@firebase/auth";
-  import Swal from 'sweetalert2';
-  // import Alert from "../components/Alert.vue";
-  // const port = 3001;
-  // const token = cookies.get("token");
-
-  export default{
-    methods: {
-        async logout() {
-        await signOut(auth)
-        .then(() => {
-        Swal.fire({
-              title: 'Success!',
-              text: `Succesesfully logout`,
-              icon: 'success',
-              timer: 1500,
-              showConfirmButton: false,
-        });
-        // cookies.remove("token");
-        this.$router.push({ name: "login" });
-        })
-        .catch((err) => console.log(err));
-        }
-    },
-  }
-  
-</script> -->
-
-
 <template>
   <nav class="menu-container">
   <input type="checkbox" aria-label="Toggle menu" />
     <a class="menu-logo"></a>
-    <h2 class="font-bold text-2xl">Joko Kendil Moncrot</h2>
+    <h2 class="font-bold text-2xl">Joko Kendil Ngecor Shortener Link</h2>
     <div class="menu">
         <ul>
         </ul>
         <ul>
         <li>
-            <a @click="Logout()" class="font-bold text-2xl text-center">
+            <a @click="Logout()" class="bg-gray-500 hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded">
               Logout
             </a>
         </li>
@@ -145,7 +48,7 @@
       </thead>
       <tbody v-for="link in links" :key="link">
         <tr v-if="link.uid == userID">
-          <th><a target="_blank" v-bind:href="link.flink">JokoKendilMoncrot/{{ link.slink }}</a></th>
+          <th> <a @click="clickLink()" target="_blank" v-bind:href="'http://127.0.0.1:5173/' + link.slink">JokoKendilNgecor/{{ link.slink }}</a></th>
           <td style="max-width: 500px; word-wrap: break-word;">{{ link.flink }}</td>
           <td scope="row">{{ link.uses }}</td>
           <td><button class="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" @click="editLink(link.id)"> Edit </button></td>
@@ -158,9 +61,10 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import { initializeApp } from "firebase/app";
 import { signOut, getAuth } from "firebase/auth"
-import { auth } from '../firebase/firebase.js'
+import { auth } from '../firebase/firebase.js';
 
 import axios from 'axios'
 
@@ -184,6 +88,13 @@ export default {
       try {
         signOut(auth)
         .then(() => {
+          Swal.fire({
+                  title: 'Success!',
+                  text: `Succesesfully logout`,
+                  icon: 'success',
+                  timer: 1500,
+                  showConfirmButton: false,
+                })
           localStorage.removeItem('uid')
           this.$router.push("/")
         })
@@ -194,7 +105,7 @@ export default {
     },
     async getLink() {
       this.userID = localStorage.getItem('uid')
-      console.log(this.userID)
+      // console.log(this.userID)
       const res = await axios.get('http://localhost:3000/link')
         .then((response)=>{
           this.links.push(...response.data)
@@ -208,9 +119,16 @@ export default {
         slink: this.slink,
         id: this.id,
         uid: this.userID,
-        uses: 1,
+        uses: 0,
       })
       .then((response) =>{
+        Swal.fire({
+                  title: 'Success!',
+                  text: `Succesesfully add link`,
+                  icon: 'success',
+                  timer: 1500,
+                  showConfirmButton: false,
+                })
         console.log(response.data)
         location.reload()
       })
@@ -218,9 +136,27 @@ export default {
     async deleteLink(id) {
       const res = await axios.delete('http://localhost:3000/link/' + id)
       .then((response)=>{
+        Swal.fire({
+                  title: 'Success!',
+                  text: `Succesesfully delete link`,
+                  icon: 'success',
+                  timer: 1500,
+                  showConfirmButton: false,
+                })
         console.log(response.data)
         location.reload()
       })
+    },
+    async clickLink() {
+        const q = query(collection(db, "link"))
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((docSnap) => {
+          id = docSnap.id
+          const docData = docSnap.data()
+          updateDoc(doc(db, "link", id))
+          console.log(doc.id, " => ", doc.data());
+        });
+        window.location.reload()
     },
     async editHandler(id) {
       const res = await axios.patch('http://localhost:3000/link/' + id, {
@@ -228,6 +164,13 @@ export default {
         newslink: this.newLink.newslink,
       })
       .then((response) => {
+        Swal.fire({
+                  title: 'Success!',
+                  text: `Succesesfully edit link`,
+                  icon: 'success',
+                  timer: 2000,
+                  showConfirmButton: false,
+                })
         location.reload()
         console.log(response)
       })
@@ -319,7 +262,7 @@ button:active {
     align-items: center;
     margin-bottom: 20px;
     background: #232323;
-    color: #cdcdcd;
+    color: #ffffff;
     padding: 20px;
     z-index: 1;
     -webkit-user-select: none;
@@ -344,9 +287,9 @@ button:active {
   transition: color 0.3s ease;
 }
 
-.menu-container a:hover {
+/* .menu-container a:hover {
   color: #00C6A7;
-}
+} */
 
 .menu-container input {
   display: block;
@@ -367,7 +310,7 @@ button:active {
     height: 4px;
     margin-bottom: 5px;
     position: relative;
-    background: #cdcdcd;
+    background: #ffffff;
     border-radius: 3px;
     z-index: 1;
     transform-origin: 4px 0px;
