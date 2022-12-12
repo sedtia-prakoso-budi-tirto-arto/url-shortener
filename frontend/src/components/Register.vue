@@ -56,6 +56,51 @@
                   showConfirmButton: false,
                 });
               }
+              else if(response.data == "auth/invalid-email") {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Please input valid email`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/weak-password") {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Password too weak`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/admin-restricted-operation") {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Please input email & password`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/missing-email") {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Please input your email !`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/internal-error") {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Please input your password !`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
               else{
                 Swal.fire({
                   title: 'Success!',

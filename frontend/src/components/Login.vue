@@ -73,7 +73,7 @@ export default {
                 });
               }
               else if(response.data == "auth/wrong-password"){
-                this.validation = "Wrong password ! Please input valid password"
+                this.validation = "Wrong password ! Please check your password"
                 Swal.fire({
                   title: 'Error!',
                   text: `${this.validation}`,
@@ -87,6 +87,15 @@ export default {
                 Swal.fire({
                   title: 'Error!',
                   text: `${this.validation}`,
+                  icon: 'error',
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+              }
+              else if(response.data == "auth/internal-error") {
+                Swal.fire({
+                  title: 'Error!',
+                  text: `Please input your password !`,
                   icon: 'error',
                   timer: 1500,
                   showConfirmButton: false,
