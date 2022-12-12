@@ -15,8 +15,8 @@
   </div>
   
   <div class="edit text-center mt-7" v-show="editbar">
-    <input type="text" placeholder="new slink" v-model="newLink.newslink" />
-    <input type="text" placeholder="new url" v-model="newLink.newflink"/>
+    <input type="text" placeholder="new alias" v-model="newLink.newslink" class="rounded"/>
+    <input type="text" placeholder="new url" v-model="newLink.newflink" class="rounded"/>
     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="editHandler(newLink.id)">Submit Edit</button>
   </div>
       

@@ -9,7 +9,7 @@
             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
               <div class="md:col-span-5">
                 <label>Email</label><br />
-                <input type="text" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="email@domain.com" v-model="email" required/>
+                <input type="text" name="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="email@domain.com" v-model="email" required/>
               </div>
   
               <div class="md:col-span-5">
