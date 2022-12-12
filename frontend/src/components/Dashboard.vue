@@ -397,7 +397,7 @@ button:active {
   }
 
   .menu-container a {
-    color: #cdcdcd;
+    color: #ffffff;
   }
 
   .menu-container input {
