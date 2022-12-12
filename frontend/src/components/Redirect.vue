@@ -1,14 +1,12 @@
 <template>
     <div class="container mx-auto px-72">
-        <div class="warning">
-            wait.....
+        <div class="warning text-center font-bold" style="margin-top: 50%;">
+            WAIT . . . . .
         </div>
     </div>
 </template>
 
 <script>
-    import { db } from '../firebase/firebase.js'
-    import { query, where, collection, doc, onSnapshot } from "firebase/firestore";
     import axios from 'axios'
     export default {
         mounted() {

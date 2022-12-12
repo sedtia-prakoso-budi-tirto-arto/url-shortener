@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import UsersView from "../components/Users.vue";
 import LoginView from "../components/Login.vue";
 import RegisterView from "../components/Register.vue";
-import DashboardView from "../components/Dashboard.vue";
+// import DashboardView from "../components/Dashboard.vue";
 import NotfoundView from "../components/Notfound.vue";
 import Redirect from "../components/Redirect.vue";
 
@@ -21,9 +21,10 @@ const router = createRouter({
       component: LoginView,
     },
     {
-      path: '/dashboard',
+      path: '/dashboard/:uid',
       name: 'dashboard',
-      component: DashboardView,
+      // component: DashboardView,
+      component: () => import ("../components/Dashboard.vue")
     },
     {
       path: '/:catchAll(.*)',

@@ -39,7 +39,7 @@ router.post("/api/login", async(req, res) => {
       .then((userCredential) => {
         const user = userCredential.user;
           const uid = user.uid;
-          console.log(error);
+          // console.log(error);
           // res.send(uid); 
           res.send(uid);
       })

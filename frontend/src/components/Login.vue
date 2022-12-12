@@ -100,10 +100,10 @@ export default {
                   timer: 1500,
                   showConfirmButton: false,
                 })
-                const uid = response.status;
+                const uid = response.data;
                 console.log(uid);
                 localStorage.setItem('uid', uid);
-                this.$router.push({name: "dashboard"});
+                this.$router.push({path: "/dashboard/" + uid});
                 //status: success;               
               }
             })
